@@ -154,6 +154,7 @@ authRouter.post('/changePassword', ensureAuth, async function (req, res, next) {
 // forgot password route that will not required being loggedIn
 
 // edit user
+// can only edit firstname and lastName
 authRouter.put('/editProfile', ensureAuth, async function(req, res, next) {
     const body = _.pick(req.body, ['firstName', 'lastName'])
     if (!body.firstName && !body.lastName) {

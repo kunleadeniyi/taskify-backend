@@ -48,9 +48,6 @@ taskRouter.get('/:taskId', ensureAuth, async function(req, res, next) {
     }
 })
 
-// a get all tasks route ?
-// get all uncompleted tasks route?
-
 // a get tasks route with sort query params? by when due ?
 
 taskRouter.put('/:taskId', ensureAuth, async function(req, res, next) {
