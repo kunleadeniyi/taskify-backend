@@ -39,10 +39,10 @@ const apiRouter = require('./api/api');
 app.use('/api', apiRouter);
 
 // app.use(errorHandler());
-if (process.env.NODE_ENV === 'development') {
+// if (process.env.NODE_ENV === 'development') {
   // only use in development
   app.use(errorHandler())
-}
+// }
 
 app.listen(PORT, () => {
   console.log(`listening at port: ${PORT}`);
