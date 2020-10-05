@@ -6,12 +6,12 @@ const cors = require('cors');
 
 require('dotenv').config()
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 // DB stuff
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.TASKIFY_DB, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_TASKIFY_DB, { useUnifiedTopology: true, useNewUrlParser: true });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 
