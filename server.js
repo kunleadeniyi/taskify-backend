@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const errorHandler = require('error-handler');
+const errorHandler = require('errorhandler');
 const cors = require('cors');
 
 require('dotenv').config()
@@ -41,7 +41,7 @@ app.use('/api', apiRouter);
 // app.use(errorHandler());
 // if (process.env.NODE_ENV === 'development') {
   // only use in development
-  app.use(errorHandler())
+app.use(errorHandler())
 // }
 
 app.listen(PORT, () => {
