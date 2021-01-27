@@ -29,7 +29,11 @@ const userSchema = new mongoose.Schema({
             access: { type: String, required: true }, 
             token: { type: String, required: true }
         }
-    ]
+    ],
+    resetToken: {
+        type: String,
+        default: ''
+    }
 })
 
 // static methods
