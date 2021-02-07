@@ -8,6 +8,10 @@ apiRouter.use('/auth', authRouter);
 const boardRouter = require('./board');
 apiRouter.use('/board', boardRouter);
 
+// mount user router
+const userRouter = require('./user');
+apiRouter.use('/user', userRouter)
+
 // dummyRoute test
 // for heroku
 const dummyRouter = require('./dummy');

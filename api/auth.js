@@ -117,7 +117,7 @@ authRouter.get('/logout', ensureAuth, async function (req, res, next) {
     // strip user token away
     try {
         await User.updateOne({ _id: req.user._id }, { $pull: { tokens: { access: "Bearer" } } }, { multi: true })
-        res.status(200).send('successful')
+        res.status(200).send("successful")
     } catch (error) {
         next(error)
     }
@@ -217,21 +217,6 @@ authRouter.post('/resetPassword', async function(req, res, next) {
         user.local.password = body.newPassword
         user = await user.save()
         res.status(200).send("Your password has been reset succesffully")
-    } catch (error) {
-        next(error)
-    }
-})
-
-// edit user
-// can only edit firstname and lastName
-authRouter.put('/editProfile', ensureAuth, async function (req, res, next) {
-    const body = _.pick(req.body, ['firstName', 'lastName'])
-    if (!body.firstName && !body.lastName) {
-        return res.status(404).send('Cannot leave fields empty')
-    }
-    try {
-        await User.updateOne({ _id: req.user._id }, { $set: body });
-        res.sendStatus(204)
     } catch (error) {
         next(error)
     }

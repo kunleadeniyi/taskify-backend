@@ -24,6 +24,7 @@ taskRouter.param('taskId', async function(req, res, next, taskId) {
     }
 });
 
+
 // fullpath - /api/board/:boardId/task/
 taskRouter.get('/', ensureAuth, async function(req, res, next) {
     try {

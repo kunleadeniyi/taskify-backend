@@ -29,16 +29,8 @@ app.use(bodyParser.json());
 // CORS
 app.use(cors())
 
-// load
-// const path = require('path');
-// const publicPath = path.join(__dirname, '..', 'public');
-// app.use(express.static(publicPath));
-// Mount your existing apiRouter below at the '/api' path.
-
 const apiRouter = require('./api/api');
 app.use('/api', apiRouter);
-
-
 
 app.use(function (error, req, res, next) {
   console.error(error.stack)
