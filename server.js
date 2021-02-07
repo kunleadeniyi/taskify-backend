@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 4000 ;
 // DB stuff
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_TASKIFY_DB, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_TASKIFY_DB, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 

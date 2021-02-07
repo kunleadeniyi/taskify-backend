@@ -50,5 +50,3 @@ async function sendMail(userMail, mailObject) {
 module.exports = {
     sendMail
 };
-
-
