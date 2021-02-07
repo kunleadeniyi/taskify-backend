@@ -12,9 +12,4 @@ apiRouter.use('/board', boardRouter);
 const userRouter = require('./user');
 apiRouter.use('/user', userRouter)
 
-// dummyRoute test
-// for heroku
-const dummyRouter = require('./dummy');
-apiRouter.use('/dummyRoute', dummyRouter)
-
 module.exports = apiRouter;
