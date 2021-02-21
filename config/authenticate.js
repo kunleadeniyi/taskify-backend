@@ -3,11 +3,11 @@ const User = require("../models/User");
 
 async function ensureAuth(req, res, next) {
     try {
-        if (!req.header('Authorization')) {
+        if (!req.header("Authorization")) {
             return res.status(403).send("Forbidden")
         }
     
-        const token = req.header('Authorization').split(' ')[1];
+        const token = req.header("Authorization").split(" ")[1];
     
         if (!token) {
             return res.status(403).send("Forbidden")

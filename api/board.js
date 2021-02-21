@@ -1,13 +1,13 @@
-const boardRouter = require('express').Router();
-const _ = require('lodash');
-const mongoose = require('mongoose');
+const boardRouter = require("express").Router();
+const _ = require("lodash");
+const mongoose = require("mongoose");
 
-const { ensureAuth } = require('../config/authenticate');
-const Board = require('../models/Board');
-const Task = require('../models/Task');
+const { ensureAuth } = require("../config/authenticate");
+const Board = require("../models/Board");
+const Task = require("../models/Task");
 
 
-boardRouter.param('boardId', async function(req, res, next, boardId) {
+boardRouter.param("boardId", async function(req, res, next, boardId) {
     if (!mongoose.Types.ObjectId.isValid(boardId)) {
         return res.status(404).send("Provide a valid board id")
     }
@@ -26,7 +26,7 @@ boardRouter.param('boardId', async function(req, res, next, boardId) {
 });
 
 // get one board
-boardRouter.get('/:boardId', ensureAuth, async function(req, res, next) {
+boardRouter.get("/:boardId", ensureAuth, async function(req, res, next) {
     try {
         res.status(200).json({board: req.board})
     } catch (error) {
@@ -35,9 +35,9 @@ boardRouter.get('/:boardId', ensureAuth, async function(req, res, next) {
 });
 
 // get all boards
-boardRouter.get('/', ensureAuth, async function(req, res, next) {
+boardRouter.get("/", ensureAuth, async function(req, res, next) {
     try {
-        const boards = await Board.find({'createdBy': req.user._id})
+        const boards = await Board.find({"createdBy": req.user._id})
         if (!boards) {
             res.status(404).send(new Error("Error making request"))
         } else {
@@ -50,8 +50,8 @@ boardRouter.get('/', ensureAuth, async function(req, res, next) {
     }
 });
 
-boardRouter.post('/', ensureAuth, async function(req, res, next) {
-    const body = _.pick(req.body, ['title']);
+boardRouter.post("/", ensureAuth, async function(req, res, next) {
+    const body = _.pick(req.body, ["title"]);
     if (!body.title) {
         return res.sendStatus(400)
     }
@@ -69,8 +69,8 @@ boardRouter.post('/', ensureAuth, async function(req, res, next) {
     }
 })
 
-boardRouter.put('/:boardId', ensureAuth, async function(req, res, next) {
-    const body = _.pick(req.body, ['title']);
+boardRouter.put("/:boardId", ensureAuth, async function(req, res, next) {
+    const body = _.pick(req.body, ["title"]);
     if (!body.title) {
         return res.status(404).send("Fill title field")
     }
@@ -90,15 +90,15 @@ boardRouter.put('/:boardId', ensureAuth, async function(req, res, next) {
 })
 
 // mount task on boardRouter, all task must belong to a board
-const taskRouter = require('./task')
-boardRouter.use('/:boardId/task', taskRouter)
+const taskRouter = require("./task")
+boardRouter.use("/:boardId/task", taskRouter)
 
 // deleting a board will delete all the tasks in it.
-boardRouter.delete('/:boardId', ensureAuth, async function(req,res,next) {
+boardRouter.delete("/:boardId", ensureAuth, async function(req,res,next) {
     try {
         // delete board and all tasks in it 
         // find 
-        let result = ''
+        let result = ""
         // delete tasks on that board
         await Task.deleteMany({board: req.params.boardId}, function(err, taskDeleted) {
             if (err) {

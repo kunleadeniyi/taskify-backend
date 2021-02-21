@@ -1,9 +1,9 @@
-require('dotenv').config({path: `${__dirname}/../.env`});
-const nodemailer = require('nodemailer');
-const { google } = require('googleapis');
-const { result } = require('lodash');
+require("dotenv").config({path: `${__dirname}/../.env`});
+const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+const { result } = require("lodash");
 
-const redirectUri = 'https://developers.google.com/oauthplayground'
+const redirectUri = "https://developers.google.com/oauthplayground"
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
@@ -20,10 +20,10 @@ async function sendMail(userMail, mailObject) {
         const accessToken = await oAuth2Client.getAccessToken()
 
         const transport = nodemailer.createTransport({
-            service: 'gmail',
+            service: "gmail",
             auth: {
-                type: 'OAuth2',
-                user: 'developer.ayok@gmail.com',
+                type: "OAuth2",
+                user: "developer.ayok@gmail.com",
                 clientId: clientId,
                 clientSecret: clientSecret,
                 refreshToken: refreshToken,
@@ -32,7 +32,7 @@ async function sendMail(userMail, mailObject) {
         })
 
         const mailOption = {
-            from: 'Taskifyy <developer.ayok@gmail.com>',
+            from: "Taskifyy <developer.ayok@gmail.com>",
             to: userMail,
             subject: mailObject.subject,
             text: mailObject.text,

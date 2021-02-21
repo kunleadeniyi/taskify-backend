@@ -1,12 +1,12 @@
-const taskRouter = require('express').Router({mergeParams: true});
-const mongoose  = require('mongoose');
-const _ = require('lodash');
+const taskRouter = require("express").Router({mergeParams: true});
+const mongoose  = require("mongoose");
+const _ = require("lodash");
 
-const { ensureAuth } = require('../config/authenticate');
-const Task = require('../models/Task');
-// const Board = require('../models/Board')
+const { ensureAuth } = require("../config/authenticate");
+const Task = require("../models/Task");
+// const Board = require("../models/Board")
 
-taskRouter.param('taskId', async function(req, res, next, taskId) {
+taskRouter.param("taskId", async function(req, res, next, taskId) {
     if (!mongoose.Types.ObjectId.isValid(taskId)) {
         return res.status(404).send("Provide a valid board id")
     }
@@ -26,9 +26,9 @@ taskRouter.param('taskId', async function(req, res, next, taskId) {
 
 
 // fullpath - /api/board/:boardId/task/
-taskRouter.get('/', ensureAuth, async function(req, res, next) {
+taskRouter.get("/", ensureAuth, async function(req, res, next) {
     try {
-        const tasks = await Task.find({'createdBy': req.user._id, 'board': req.params.boardId})
+        const tasks = await Task.find({"createdBy": req.user._id, "board": req.params.boardId})
         if (!tasks) {
             res.status(404).send(new Error("Error making request"))
         } else {
@@ -40,7 +40,7 @@ taskRouter.get('/', ensureAuth, async function(req, res, next) {
     }
 })
 
-taskRouter.get('/:taskId', ensureAuth, async function(req, res, next) {
+taskRouter.get("/:taskId", ensureAuth, async function(req, res, next) {
     try {
         res.status(200).json({task: req.task})
     } catch (err) {
@@ -51,8 +51,8 @@ taskRouter.get('/:taskId', ensureAuth, async function(req, res, next) {
 
 // a get tasks route with sort query params? by when due ?
 
-taskRouter.put('/:taskId', ensureAuth, async function(req, res, next) {
-    const body = _.pick(req.body, ['body', 'dueTime', 'repeat', 'completed'])
+taskRouter.put("/:taskId", ensureAuth, async function(req, res, next) {
+    const body = _.pick(req.body, ["body", "dueTime", "repeat", "completed"])
     body.board = req.params.boardId
     body.createdBy = req.user._id
 
@@ -70,8 +70,8 @@ taskRouter.put('/:taskId', ensureAuth, async function(req, res, next) {
     }
 })
 
-taskRouter.post('/', ensureAuth, async function(req, res, next) {
-    const body = _.pick(req.body, ['body', 'dueTime', 'repeat', 'completed'])
+taskRouter.post("/", ensureAuth, async function(req, res, next) {
+    const body = _.pick(req.body, ["body", "dueTime", "repeat", "completed"])
     body.board = req.params.boardId
     body.createdBy = req.user._id
     if (!body.body) { // only the body content is required
@@ -87,7 +87,7 @@ taskRouter.post('/', ensureAuth, async function(req, res, next) {
     }
 })
 
-taskRouter.delete('/:taskId', ensureAuth, async function(req, res, next) {
+taskRouter.delete("/:taskId", ensureAuth, async function(req, res, next) {
     try {
         await Task.findByIdAndDelete(req.params.taskId, function(err) {
             if (err) {
@@ -103,7 +103,7 @@ taskRouter.delete('/:taskId', ensureAuth, async function(req, res, next) {
 /* completetask route - patch request?
 basically just setting completed: true
 */
-taskRouter.patch('/:taskId/toggleComplete', ensureAuth, async function(req, res, next) {
+taskRouter.patch("/:taskId/toggleComplete", ensureAuth, async function(req, res, next) {
     try {
         // toggle task.completed 
         await Task.updateOne({_id: req.params.taskId}, {$set: {completed: !req.task.completed}}, function(err) {
